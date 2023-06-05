@@ -100,6 +100,40 @@ SELECT f.titre_film, DATE_FORMAT(f.annee_sortie, '%Y') AS date_sortie
 
 FROM film f
 
-WHERE (date_format(NOW(), '%Y') - DATE_FORMAT(f.annee_sortie, '%Y')) < 5
+WHERE (DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(f.annee_sortie, '%Y')) < 5
 
 ORDER BY f.annee_sortie DESC 
+
+-- Nombre d'hommes et de femmes parmi les acteurs
+
+SELECT (
+		SELECT COUNT(p.id_personne) 
+		FROM personne p 
+			INNER JOIN acteur a
+				ON p.id_personne = a.id_personne -- Pour éviter que les réalisateurs soient inclus
+		WHERE p.sexe = 'F'
+		) AS actrices,
+		
+		
+	
+		(
+		SELECT COUNT(p.id_personne) 
+		FROM personne p 
+			INNER JOIN acteur a
+			ON p.id_personne = a.id_personne 
+		WHERE p.sexe = 'M'
+		) AS acteurs
+
+		
+-- Liste des acteurs ayant + de 50 ans 
+
+SELECT p.prenom, p.nom, (DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(p.date_naissance, '%Y')) AS age -- formatage des dates en années puis soustraction.
+
+FROM personne p
+	INNER JOIN acteur a
+		ON p.id_personne = a.id_personne -- Pour comparer que des acteurs et non des réalisateurs.
+		
+WHERE (DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(p.date_naissance, '%Y')) >= 50 
+
+ORDER BY age ASC 
+		
