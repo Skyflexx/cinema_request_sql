@@ -16,7 +16,7 @@ FROM film f
 
     WHERE id_film = 1 -- Selection des infos qu'on souhaite par l'ID film.
 
--- OU LA FONCTION SECTOTIME
+-- OU LA FONCTION SEC TO TIME
 
 SELECT 
 	f.id_film,
