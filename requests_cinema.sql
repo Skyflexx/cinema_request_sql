@@ -137,3 +137,16 @@ WHERE (DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(p.date_naissance, '%Y')) >= 50
 
 ORDER BY age ASC 
 		
+-- Acteurs ayant joué dans 3 films ou plus
+
+SELECT p.nom, p.prenom, COUNT(c.id_film) AS nombre_films
+
+FROM personne p
+	INNER JOIN acteur a
+		ON p.id_personne = a.id_personne
+	INNER JOIN casting c
+		ON a.id_acteur = c.id_acteur
+		
+GROUP BY p.id_personne
+
+HAVING COUNT(c.id_film) > 3
