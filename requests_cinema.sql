@@ -85,3 +85,21 @@ WHERE id_acteur = 10
 ORDER BY date_sortie DESC
 
 -- Liste des personnes qui sont à la fois acteurs et réalisateurs
+
+SELECT p.nom, p.prenom
+
+FROM personne p
+	INNER JOIN realisateur r
+		ON p.id_personne = r.id_personne
+	INNER JOIN acteur a
+		ON a.id_personne = r.id_personne
+
+-- Liste des films qui ont moins de 5 ans (classés du plus récent au plus ancien)
+
+SELECT f.titre_film, DATE_FORMAT(f.annee_sortie, '%Y') AS date_sortie
+
+FROM film f
+
+WHERE (date_format(NOW(), '%Y') - DATE_FORMAT(f.annee_sortie, '%Y')) < 5
+
+ORDER BY f.annee_sortie DESC 
