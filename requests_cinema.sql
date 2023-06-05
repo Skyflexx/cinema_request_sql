@@ -16,6 +16,23 @@ FROM film f
 
     WHERE id_film = 1 -- Selection des infos qu'on souhaite par l'ID film.
 
+-- OU LA FONCTION SECTOTIME
+
+SELECT 
+	f.id_film,
+	f.titre_film, 
+	DATE_FORMAT(annee_sortie, "%Y") AS release_date,
+	SEC_TO_TIME(f.duree_film*60),
+	CONCAT(p.prenom, ' ', p.nom) AS nom_realisateur
+	
+FROM film f
+	INNER JOIN realisateur r
+		ON f.id_realisateur = r.id_realisateur
+	INNER JOIN personne p
+		ON r.id_personne = p.id_personne
+
+    WHERE id_film = 1 -- Selection des infos qu'on souhaite par l'ID film.
+
 -- Liste des films dont la durée excède 2h15 classés par odre du + long au + court)
 
 SELECT f.titre_film, df.duree
@@ -113,7 +130,7 @@ SELECT (
 				ON p.id_personne = a.id_personne -- Pour éviter que les réalisateurs soient inclus
 		WHERE p.sexe = 'F'
 		) AS actrices,
-		
+
 		
 		(
 		SELECT COUNT(p.id_personne) 
