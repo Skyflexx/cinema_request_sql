@@ -22,7 +22,7 @@ SELECT
 	f.id_film,
 	f.titre_film, 
 	DATE_FORMAT(annee_sortie, "%Y") AS release_date,
-	SEC_TO_TIME(f.duree_film*60),
+	SEC_TO_TIME(f.duree_film*60) AS duree,
 	CONCAT(p.prenom, ' ', p.nom) AS nom_realisateur
 	
 FROM film f
