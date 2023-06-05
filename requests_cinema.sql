@@ -115,7 +115,6 @@ SELECT (
 		) AS actrices,
 		
 		
-	
 		(
 		SELECT COUNT(p.id_personne) 
 		FROM personne p 
