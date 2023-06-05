@@ -55,3 +55,33 @@ FROM film f
 
 GROUP BY g.nom_genre
 ORDER BY nombre_films DESC
+
+-- Casting d'un film en particulier (id film) : Nom, prenom sexe des acteurs
+
+SELECT p.nom, p.prenom, p.sexe
+
+FROM film f
+	INNER JOIN casting c
+		ON f.id_film = c.id_film
+	INNER JOIN acteur a
+		ON c.id_acteur = a.id_acteur
+	INNER JOIN personne p
+		ON a.id_personne = p.id_personne
+		
+WHERE f.id_film = 1
+
+-- Films tournés par un acteur en particulier (id_acteur) avec leur rôle, l'année de sortie (du film + récent au + ancien)
+
+SELECT f.titre_film, DATE_FORMAT(f.annee_sortie, '%Y') AS date_sortie, r.nom_role
+
+FROM film f
+	INNER JOIN casting c
+		ON f.id_film = c.id_film
+	INNER JOIN role r
+		ON c.id_role = r.id_role
+
+WHERE id_acteur = 10
+
+ORDER BY date_sortie DESC
+
+-- Liste des personnes qui sont à la fois acteurs et réalisateurs
